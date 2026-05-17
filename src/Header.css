@@ -1,0 +1,12 @@
+#title {
+  display: flex;
+  justify-content: center;
+  color: rgb(8, 8, 8);
+}
+
+#buttons {
+    display: flex;
+    justify-content: center;
+    
+
+}
