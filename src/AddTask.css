@@ -1,0 +1,23 @@
+.addTask {
+  /* background-color: red; */
+  display: flex;
+  column-gap: 5px;
+  justify-content: center;
+}
+
+.addButton {
+  background-color: blueviolet;
+  color: rgb(255, 255, 255);
+  border: 1px solid;
+  border-color: rgb(135, 135, 236);
+  padding: 0 20px;
+  border-radius: 3px;
+  font-size: medium;
+}
+
+.addButton:hover {
+  background-color: rgb(100, 8, 161);
+  transform: scale(1.05);
+  cursor: pointer;
+  box-shadow: 10px;
+}
