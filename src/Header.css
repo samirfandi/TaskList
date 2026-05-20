@@ -1,12 +1,28 @@
 #title {
   display: flex;
   justify-content: center;
-  color: rgb(8, 8, 8);
+  color: rgb(133, 120, 120);
+  font-family: karla;
 }
 
 #buttons {
-    display: flex;
-    justify-content: center;
-    
+  display: flex;
+  justify-content: center;
+}
+#button {
+  font-family: bold;
+}
 
+@font-face {
+  font-family: karla;
+  src: url("../public/fonts/Karla/Karla-VariableFont_wght.ttf");
+}
+
+@font-face {
+  font-family: medium;
+  src: url(../public/fonts/Onest/Onest-Medium.ttf);
+}
+@font-face {
+  font-family: bold;
+  src: url(../public/fonts/Onest/Onest-Bold.ttf);
 }

@@ -2,11 +2,12 @@ import AddTask from "./AddTask";
 import "./App.css";
 import Header from "./Header";
 import Task from "./Task";
+import Container from "@mui/material/Container";
 
 function App() {
   return (
     <div className="App">
-      <div className="all">
+      <Container maxWidth="sm" className="all">
         <Header />
         <div>
           <Task />
@@ -15,7 +16,7 @@ function App() {
           <Task />
         </div>
         <AddTask />
-      </div>
+      </Container>
     </div>
   );
 }

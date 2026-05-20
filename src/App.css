@@ -1,9 +1,15 @@
 .App {
-  padding: 100px 100px;
-  background-color: rgb(255, 255, 255);
+  /* padding: 100px 100px; */
+  background-color: rgb(139, 103, 153);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .all {
   background-color: rgb(226, 236, 232);
-  padding: 5px; 
+  padding: 5px;
+  border-radius: 18px;
+  
 }
