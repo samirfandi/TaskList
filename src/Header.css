@@ -1,7 +1,7 @@
 #title {
   display: flex;
   justify-content: center;
-  color: rgb(133, 120, 120);
+  color: rgba(37, 34, 37, 0.74);
   font-family: karla;
 }
 
@@ -10,7 +10,13 @@
   justify-content: center;
 }
 #button {
-  font-family: bold;
+  font-family: medium;
+  font-size: large;
+  padding: 2px;
+  margin: 2px;
+  font-size: small;
+  background-color: bisque;
+  color: rgb(26, 118, 199);
 }
 
 @font-face {
