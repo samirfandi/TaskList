@@ -46,10 +46,11 @@ export default function AddTask({ handleCreateTask }) {
       </Grid>
       <Grid item xs={3}>
         <button
-          className="addButton"
+          className={taskName.length == 0 ? "addButtonDis" : "addButtonAb"}
           onClick={() => {
             handleCreateButton();
           }}
+          disabled={taskName.length == 0 }
         >
           {" "}
           Create Task

@@ -1,39 +1,48 @@
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import "./Header.css";
+import { TasksContext } from "./contexts/TasksContext";
+import { useContext } from "react";
 
-export default function Header({ inProgressTasks, allTasks }) {
-  const inprogressTasks = function () {
-    alert("In progress");
-    inProgressTasks();
-  };
+export default function Header() {
+  const value = useContext(TasksContext);
+  const selectedTasks = value.selectedTasks;
+  const SetSelectedTasks = value.SetSelectedTasks;
 
-  const alltasks = function () {
-    alert("all tasks");
-    allTasks();
-  };
   return (
     <div>
       <h1 id="title"> My Tasks </h1>
+      <hr />
       <Stack id="buttons" direction="row" spacing={1}>
         <Button
           id="button"
           size="small"
-          // color="secondary"
           variant="outlined"
-          onClick={alltasks}
+          value="allTasks"
+          onClick={() => {
+            SetSelectedTasks("allTasks");
+          }}
         >
-          tasks
+          All
         </Button>
         <Button
           id="button"
           variant="outlined"
-          // color="error"
-          onClick={inprogressTasks}
+          value="inProgressTasks"
+          onClick={() => {
+            SetSelectedTasks("inProgressTasks");
+          }}
         >
           In Progress
         </Button>
-        <Button id="button" variant="outlined">
+        <Button
+          id="button"
+          variant="outlined"
+          value="doneTasks"
+          onClick={() => {
+            SetSelectedTasks("doneTasks");
+          }}
+        >
           DONE
         </Button>
       </Stack>

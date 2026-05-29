@@ -11,12 +11,12 @@
 }
 #button {
   font-family: medium;
-  font-size: large;
+  font-size: madium;
   padding: 2px;
   margin: 2px;
-  font-size: small;
-  background-color: bisque;
-  color: rgb(26, 118, 199);
+  font-size: karla;
+  background-color: rgb(247, 246, 245);
+  color: rgb(96, 101, 105);
 }
 
 @font-face {
