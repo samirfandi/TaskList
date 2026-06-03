@@ -1,7 +1,7 @@
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import "./Header.css";
-import { TasksContext } from "./contexts/TasksContext";
+import "../style/Header.css";
+import { TasksContext } from "../contexts/TasksContext";
 import { useContext } from "react";
 
 export default function Header() {
@@ -13,9 +13,9 @@ export default function Header() {
     <div>
       <h1 id="title"> My Tasks </h1>
       <hr />
-      <Stack id="buttons" direction="row" spacing={1}>
+      <Stack id="buttons" direction="row" spacing={1} sx={{ color: "primary" }}>
         <Button
-          id="button"
+          // id="button"
           size="small"
           variant="outlined"
           value="allTasks"
@@ -26,7 +26,7 @@ export default function Header() {
           All
         </Button>
         <Button
-          id="button"
+          // id="button"
           variant="outlined"
           value="inProgressTasks"
           onClick={() => {
@@ -36,7 +36,7 @@ export default function Header() {
           In Progress
         </Button>
         <Button
-          id="button"
+          // id="button"
           variant="outlined"
           value="doneTasks"
           onClick={() => {

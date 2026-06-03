@@ -1,45 +1,48 @@
-import { useState, useEffect } from "react";
-import AddTask from "./AddTask";
-import "./App.css";
-import Header from "./Header";
-import Task from "./Task";
-import Container from "@mui/material/Container";
-import { v4 as uuidv4 } from "uuid";
-import { TasksContext } from "./contexts/TasksContext";
-import { SnackbarContext } from "./contexts/SnackbarContext";
-import Grid from "@mui/material/Grid";
+// style
+import "./style/App.css";
+
+// components
+import AddTask from "./components/AddTask";
+import Task from "./components/Task";
+import Header from "./components/Header.js";
+import MySnackbar from "./components/MySnackbar.js";
+
+// react hooks
 import * as React from "react";
+import { useState, useEffect } from "react";
+
+// contexts
+import { TasksContext } from "./contexts/TasksContext";
+import { SnackbarProvider } from "./contexts/SnackbarContext";
+
+// material UI
 import Button from "@mui/material/Button";
-import Snackbar from "@mui/material/Snackbar";
-import Alert from "@mui/material/Alert";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+
+// other
+import { v4 as uuidv4 } from "uuid";
+
+// Theme
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#0d47a1",
+    },
+    secondary: {
+      main: "#b2dfdb",
+    },
+    background: {
+      main: "#c62828",
+    },
+  },
+});
 
 function App() {
+  // states
   const [tasks, setTasks] = useState([]);
   const [selectedTasks, SetSelectedTasks] = useState("allTasks");
-  const [snackbarDelete, setSnackbarDelete] = useState(false);
-  const [snackbarEdit, setSnackbarEdit] = useState(false);
-  const [snackbarCompleted, setSnackbarCompleted] = useState(false);
-
-  const handleDelete = () => {
-    setSnackbarDelete(true);
-    setTimeout(() => {
-      setSnackbarDelete(false);
-    }, 5000);
-  };
-
-  const handleCompleted = () => {
-    setSnackbarCompleted(true);
-    setTimeout(() => {
-      setSnackbarCompleted(false);
-    }, 5000);
-  };
-
-  const handleEdit = () => {
-    setSnackbarEdit(true);
-    setTimeout(() => {
-      setSnackbarEdit(false);
-    }, 5000);
-  };
 
   // completed tasks
   function completedTasks() {
@@ -85,65 +88,26 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      {/* -------- snackbar Delete -------- */}
-      <Snackbar open={snackbarDelete} autoHideDuration={6000}>
-        <Alert
-          //onClose={handleClose}
-          severity="success"
-          variant="filled"
-          sx={{ width: "100%" }}
+    <ThemeProvider theme={theme}>
+      <Box className="App" sx={{ backgroundColor: "background.main" }}>
+        <TasksContext.Provider
+          value={{ tasks, setTasks, selectedTasks, SetSelectedTasks }}
         >
-          Task deleted successfully
-        </Alert>
-      </Snackbar>
-      {/* -------- snackbar -------- */}
+          <Container maxWidth="sm" className="all">
+            <Header completedTasks={completedTasks} />
+            <SnackbarProvider>
+              <div>
+                {displayTasks.map((t) => (
+                  <Task key={t.id} task={t} />
+                ))}
+              </div>
+            </SnackbarProvider>
 
-      {/* -------- snackbar Completed -------- */}
-      <Snackbar open={snackbarCompleted} autoHideDuration={6000}>
-        <Alert
-          //onClose={handleClose}
-          severity="success"
-          variant="filled"
-          sx={{ width: "100%" }}
-        >
-          Task Completed !
-        </Alert>
-      </Snackbar>
-      {/* -------- snackbar -------- */}
-
-      {/* -------- snackbar Edit -------- */}
-      <Snackbar open={snackbarEdit} autoHideDuration={6000}>
-        <Alert
-          //onClose={handleClose}
-          severity="success"
-          variant="filled"
-          sx={{ width: "100%" }}
-        >
-          Task edited successfully
-        </Alert>
-      </Snackbar>
-      {/* -------- snackbar -------- */}
-
-      <TasksContext.Provider
-        value={{ tasks, setTasks, selectedTasks, SetSelectedTasks }}
-      >
-        <Container maxWidth="sm" className="all">
-          <Header completedTasks={completedTasks} />
-          <SnackbarContext.Provider
-            value={{ handleDelete, handleEdit, handleCompleted }}
-          >
-            <div>
-              {displayTasks.map((t) => (
-                <Task key={t.id} task={t} />
-              ))}
-            </div>
-          </SnackbarContext.Provider>
-
-          <AddTask handleCreateTask={handleCreateTask} />
-        </Container>
-      </TasksContext.Provider>
-    </div>
+            <AddTask handleCreateTask={handleCreateTask} />
+          </Container>
+        </TasksContext.Provider>
+      </Box>
+    </ThemeProvider>
   );
 }
 

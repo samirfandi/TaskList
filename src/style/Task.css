@@ -11,7 +11,7 @@
 }
 
 .Task {
-  background-color: rgba(73, 41, 216, 0.589);
+  /* background-color: rgba(73, 41, 216, 0.589); */
   margin: 7px 0;
   display: flex;
   flex-direction: row;
@@ -41,5 +41,5 @@
 
 .Task:hover {
   padding: 23px;
-  background-color: rgba(107, 137, 238, 0.76);
+  /* background-color: rgba(107, 137, 238, 0.76); */
 }

@@ -1,10 +1,11 @@
-import "./Task.css";
+import "../style/Task.css";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import { useContext, useState } from "react";
-import { TasksContext } from "./contexts/TasksContext";
-import { SnackbarContext } from "./contexts/SnackbarContext";
+import { TasksContext } from "../contexts/TasksContext";
+import { useSnackbar } from "../contexts/SnackbarContext";
+import Box from "@mui/material/Box";
 
 // Dialog
 import Dialog from "@mui/material/Dialog";
@@ -22,8 +23,7 @@ import Alert from "@mui/material/Alert";
 export default function Task({ task }) {
   // state from app
   const { tasks, setTasks } = useContext(TasksContext);
-  const { handleDelete, handleEdit, handleCompleted } =
-    useContext(SnackbarContext);
+  const { showHideSnackbar } = useSnackbar();
 
   // states
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
@@ -60,7 +60,7 @@ export default function Task({ task }) {
     });
     setTasks(newTasks);
     localStorage.setItem("tasks", JSON.stringify(newTasks));
-    handleCompleted();
+    showHideSnackbar("Task completed successfully");
   };
 
   // function used to delete a task from the list
@@ -69,7 +69,7 @@ export default function Task({ task }) {
     setTasks(newTasks);
     localStorage.setItem("tasks", JSON.stringify(newTasks));
 
-    handleDelete();
+    showHideSnackbar("Task deleted successfully");
   };
 
   // Editing event
@@ -83,12 +83,14 @@ export default function Task({ task }) {
     });
     setTasks(newTasks);
     localStorage.setItem("tasks", JSON.stringify(newTasks));
+
     handleCloseEditDialog();
-    handleEdit();
+
+    showHideSnackbar("Task edited successfully");
   }
 
   return (
-    <div className="Task">
+    <Box className="Task" sx={{ backgroundColor: "secondary.main" }}>
       {/* DELETE DIALOG  */}
       <Dialog
         open={showDeleteDialog}
@@ -157,10 +159,20 @@ export default function Task({ task }) {
       </Dialog>
       {/* ===============  EDITING DIALOG  =================  */}
 
-      <div className="titles">
+      {/* <div className="titles" style={{ backgroundColor: "primary" }}>
         <h3> {task.title}</h3>
         <p> {task.details}</p>
-      </div>
+      </div> */}
+
+      <Box
+        className="titles"
+        sx={{
+          color: "primary.main",
+        }}
+      >
+        <h3>{task.title}</h3>
+        <p>{task.details}</p>
+      </Box>
 
       <div className="icons">
         <button className="iconButton" onClick={handleOpenDeleteDialog}>
@@ -170,8 +182,7 @@ export default function Task({ task }) {
         </button>
         <button className="iconButton" onClick={handleOpenEditDialog}>
           <ModeEditOutlineOutlinedIcon
-            sx={{ fontSize: 25 }}
-            color="primary"
+            sx={{ fontSize: 25, color: "#616161" }}
           ></ModeEditOutlineOutlinedIcon>
         </button>
         <button
@@ -185,6 +196,6 @@ export default function Task({ task }) {
           <CheckOutlinedIcon sx={{ fontSize: 25 }}></CheckOutlinedIcon>
         </button>
       </div>
-    </div>
+    </Box>
   );
 }

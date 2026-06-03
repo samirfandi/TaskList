@@ -1,4 +1,4 @@
-import "./AddTask.css";
+import "../style/AddTask.css";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import { useState } from "react";
@@ -50,7 +50,7 @@ export default function AddTask({ handleCreateTask }) {
           onClick={() => {
             handleCreateButton();
           }}
-          disabled={taskName.length == 0 }
+          disabled={taskName.length == 0}
         >
           {" "}
           Create Task
