@@ -9,11 +9,12 @@ import MySnackbar from "./components/MySnackbar.js";
 
 // react hooks
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 
 // contexts
 import { TasksContext } from "./contexts/TasksContext";
 import { SnackbarProvider } from "./contexts/SnackbarContext";
+import tasksReducer from "./reducers/tasksReducer.js";
 
 // material UI
 import Button from "@mui/material/Button";
@@ -41,8 +42,12 @@ const theme = createTheme({
 
 function App() {
   // states
-  const [tasks, setTasks] = useState([]);
+  // const [tasks, setTasks] = useState([]);
+  const [taskName, setTaskName] = useState("");
+
   const [selectedTasks, SetSelectedTasks] = useState("allTasks");
+
+  const [tasks, dispatch] = useReducer(tasksReducer, []);
 
   // completed tasks
   function completedTasks() {
@@ -67,32 +72,20 @@ function App() {
     displayTasks = tasks;
   }
   // function used to add new task
-  function handleCreateTask(task) {
-    const newTasks = [
-      ...tasks,
-      {
-        id: task.id,
-        title: task.title,
-        details: task.details,
-        isCompleted: false,
-      },
-    ];
-    setTasks(newTasks);
-    localStorage.setItem("tasks", JSON.stringify(newTasks));
+  function handleCreateTask() {
+    dispatch({ type: "add", payload: { taskName: taskName } });
+    setTaskName("");
   }
 
   /////////////////////////
   useEffect(() => {
-    const storageTasks = JSON.parse(localStorage.getItem("tasks")) ?? [];
-    setTasks(storageTasks);
+    dispatch({ type: "getTasks" });
   }, []);
 
   return (
     <ThemeProvider theme={theme}>
       <Box className="App" sx={{ backgroundColor: "background.main" }}>
-        <TasksContext.Provider
-          value={{ tasks, setTasks, selectedTasks, SetSelectedTasks }}
-        >
+        <TasksContext.Provider value={{ tasks, dispatch }}>
           <Container maxWidth="sm" className="all">
             <Header completedTasks={completedTasks} />
             <SnackbarProvider>
@@ -103,7 +96,11 @@ function App() {
               </div>
             </SnackbarProvider>
 
-            <AddTask handleCreateTask={handleCreateTask} />
+            <AddTask
+              handleCreateTask={handleCreateTask}
+              setTaskName={setTaskName}
+              taskName={taskName}
+            />
           </Container>
         </TasksContext.Provider>
       </Box>

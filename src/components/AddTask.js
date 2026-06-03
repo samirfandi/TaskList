@@ -5,21 +5,7 @@ import { useState } from "react";
 import { Details } from "@mui/icons-material";
 import { v4 as uuidv4 } from "uuid";
 
-export default function AddTask({ handleCreateTask }) {
-  const handleCreateButton = function () {
-    const task = {
-      id: uuidv4(),
-      title: taskName,
-      details: "",
-      isCompleted: false,
-    };
-
-    handleCreateTask(task);
-
-    setTaskName("");
-  };
-
-  const [taskName, setTaskName] = useState("");
+export default function AddTask({ handleCreateTask, taskName, setTaskName }) {
   return (
     <Grid
       container
@@ -48,7 +34,7 @@ export default function AddTask({ handleCreateTask }) {
         <button
           className={taskName.length == 0 ? "addButtonDis" : "addButtonAb"}
           onClick={() => {
-            handleCreateButton();
+            handleCreateTask();
           }}
           disabled={taskName.length == 0}
         >

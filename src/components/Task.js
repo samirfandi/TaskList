@@ -2,10 +2,11 @@ import "../style/Task.css";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
-import { useContext, useState } from "react";
+import { useContext, useState, useReducer } from "react";
 import { TasksContext } from "../contexts/TasksContext";
 import { useSnackbar } from "../contexts/SnackbarContext";
 import Box from "@mui/material/Box";
+import tasksReducer from "../reducers/tasksReducer.js";
 
 // Dialog
 import Dialog from "@mui/material/Dialog";
@@ -22,7 +23,7 @@ import Alert from "@mui/material/Alert";
 
 export default function Task({ task }) {
   // state from app
-  const { tasks, setTasks } = useContext(TasksContext);
+  const { tasks, dispatch } = useContext(TasksContext);
   const { showHideSnackbar } = useSnackbar();
 
   // states
@@ -51,41 +52,23 @@ export default function Task({ task }) {
 
   // function used to add a task to doing task list
   const hCheckButton = function () {
-    const newTasks = tasks.map((t) => {
-      if (t.id === task.id) {
-        return { ...t, isCompleted: !t.isCompleted };
-      } else {
-        return t;
-      }
-    });
-    setTasks(newTasks);
-    localStorage.setItem("tasks", JSON.stringify(newTasks));
+    dispatch({ type: "checkButton", payload: task });
     showHideSnackbar("Task completed successfully");
   };
 
   // function used to delete a task from the list
   const hDeleteButton = function () {
-    const newTasks = tasks.filter((t) => t.id != task.id);
-    setTasks(newTasks);
-    localStorage.setItem("tasks", JSON.stringify(newTasks));
-
+    dispatch({ type: "deletButton", payload: task });
     showHideSnackbar("Task deleted successfully");
   };
 
   // Editing event
   function handleSaveEditing() {
-    const newTasks = tasks.map((t) => {
-      if (t.id == task.id) {
-        return { ...t, title: editTaskName, details: editTaskDetails };
-      } else {
-        return t;
-      }
+    dispatch({
+      type: "editButton",
+      payload: { task, editTaskName, editTaskDetails },
     });
-    setTasks(newTasks);
-    localStorage.setItem("tasks", JSON.stringify(newTasks));
-
     handleCloseEditDialog();
-
     showHideSnackbar("Task edited successfully");
   }
 
