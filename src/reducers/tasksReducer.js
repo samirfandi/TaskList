@@ -21,7 +21,12 @@ export default function reducer(currentTasks, action) {
     case "checkButton": {
       const newTasks = currentTasks.map((t) => {
         if (t.id === action.payload.id) {
-          return { ...t, isCompleted: !t.isCompleted };
+          // return { ...t, isCompleted: !t.isCompleted };
+          const updatedTask = {
+            ...t,
+            isCompleted: !t.isCompleted,
+          };
+          return updatedTask;
         } else {
           return t;
         }
