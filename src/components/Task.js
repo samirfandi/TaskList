@@ -73,7 +73,7 @@ export default function Task({ task }) {
   }
 
   return (
-    <Box className="Task" sx={{ backgroundColor: "secondary.main" }}>
+    <Box className="Task" sx={{ backgroundColor: "primary.main" }}>
       {/* DELETE DIALOG  */}
       <Dialog
         open={showDeleteDialog}
@@ -150,11 +150,11 @@ export default function Task({ task }) {
       <Box
         className="titles"
         sx={{
-          color: "primary.main",
+          color: "#ede7f6",
         }}
       >
         <h3>{task.title}</h3>
-        <p>{task.details}</p>
+        <p style={{ color: "#81d4fa" }}>{task.details}</p>
       </Box>
 
       <div className="icons">
@@ -165,7 +165,7 @@ export default function Task({ task }) {
         </button>
         <button className="iconButton" onClick={handleOpenEditDialog}>
           <ModeEditOutlineOutlinedIcon
-            sx={{ fontSize: 25, color: "#616161" }}
+            sx={{ fontSize: 25, color: "#212121" }}
           ></ModeEditOutlineOutlinedIcon>
         </button>
         <button
@@ -176,7 +176,12 @@ export default function Task({ task }) {
             color: task.isCompleted ? "white" : "#34b51a",
           }}
         >
-          <CheckOutlinedIcon sx={{ fontSize: 25 }}></CheckOutlinedIcon>
+          <CheckOutlinedIcon
+            sx={{
+              fontSize: 25,
+              // border: "3px solid #34b51a",
+            }}
+          ></CheckOutlinedIcon>
         </button>
       </div>
     </Box>
