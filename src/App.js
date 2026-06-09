@@ -9,11 +9,12 @@ import MySnackbar from "./components/MySnackbar.js";
 
 // react hooks
 import * as React from "react";
-import { useState, useEffect, useReducer } from "react";
+import { useState, useEffect, useReducer, useContext } from "react";
 
 // contexts
 import { TasksContext } from "./contexts/TasksContext";
 import { SnackbarProvider } from "./contexts/SnackbarContext";
+import TasksProvider from "./contexts/TasksContext";
 import tasksReducer from "./reducers/tasksReducer.js";
 
 // material UI
@@ -29,13 +30,13 @@ import { v4 as uuidv4 } from "uuid";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#0d47a1",
+      main: "#1a237e",
     },
     secondary: {
-      main: "#b2dfdb",
+      main: "#004d40",
     },
     background: {
-      main: "#c62828",
+      main: "#212121",
     },
   },
 });
@@ -46,8 +47,11 @@ function App() {
   const [taskName, setTaskName] = useState("");
 
   const [selectedTasks, SetSelectedTasks] = useState("allTasks");
-
   const [tasks, dispatch] = useReducer(tasksReducer, []);
+
+  // const context = useContext(TasksContext);
+  // console.log("context ====", context);
+  // console.log("tasks1 ====", context.tasks1);
 
   // completed tasks
   function completedTasks() {
@@ -71,6 +75,7 @@ function App() {
   } else if (selectedTasks == "allTasks") {
     displayTasks = tasks;
   }
+
   // function used to add new task
   function handleCreateTask() {
     dispatch({ type: "add", payload: { taskName: taskName } });
@@ -84,26 +89,28 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box className="App" sx={{ backgroundColor: "background.main" }}>
+      <TasksProvider>
         <TasksContext.Provider value={{ tasks, dispatch }}>
-          <Container maxWidth="sm" className="all">
-            <Header completedTasks={completedTasks} />
-            <SnackbarProvider>
-              <div>
-                {displayTasks.map((t) => (
-                  <Task key={t.id} task={t} />
-                ))}
-              </div>
-            </SnackbarProvider>
+          <Box className="App" sx={{ backgroundColor: "background.main" }}>
+            <Container maxWidth="sm" className="all">
+              <Header SetSelectedTasks={SetSelectedTasks} />
+              <SnackbarProvider>
+                <div>
+                  {displayTasks.map((t) => (
+                    <Task key={t.id} task={t} />
+                  ))}
+                </div>
+              </SnackbarProvider>
 
-            <AddTask
-              handleCreateTask={handleCreateTask}
-              setTaskName={setTaskName}
-              taskName={taskName}
-            />
-          </Container>
+              <AddTask
+                handleCreateTask={handleCreateTask}
+                setTaskName={setTaskName}
+                taskName={taskName}
+              />
+            </Container>
+          </Box>
         </TasksContext.Provider>
-      </Box>
+      </TasksProvider>
     </ThemeProvider>
   );
 }
