@@ -4,10 +4,10 @@ import "../style/Header.css";
 import { TasksContext } from "../contexts/TasksContext";
 import { useContext } from "react";
 
-export default function Header() {
-  const value = useContext(TasksContext);
-  const selectedTasks = value.selectedTasks;
-  const SetSelectedTasks = value.SetSelectedTasks;
+export default function Header({ SetSelectedTasks }) {
+  // const value = useContext(TasksContext);
+  // const selectedTasks = value.selectedTasks;
+  // const SetSelectedTasks = value.SetSelectedTasks;
 
   return (
     <div>
@@ -15,8 +15,8 @@ export default function Header() {
       <hr />
       <Stack id="buttons" direction="row" spacing={1} sx={{ color: "primary" }}>
         <Button
-          // id="button"
-          size="small"
+          id="button"
+          // size="medium"
           variant="outlined"
           value="allTasks"
           onClick={() => {
@@ -26,9 +26,10 @@ export default function Header() {
           All
         </Button>
         <Button
-          // id="button"
+          id="button"
           variant="outlined"
           value="inProgressTasks"
+          size="medium"
           onClick={() => {
             SetSelectedTasks("inProgressTasks");
           }}
@@ -36,7 +37,7 @@ export default function Header() {
           In Progress
         </Button>
         <Button
-          // id="button"
+          id="button"
           variant="outlined"
           value="doneTasks"
           onClick={() => {
