@@ -7,7 +7,7 @@
 }
 
 .addButtonDis {
-  background-color: rgba(155, 95, 212, 0.616);
+  background-color: #004d40;
   color: rgb(255, 255, 255);
   border: 1px solid;
   border-color: rgb(135, 135, 236);
@@ -20,7 +20,7 @@
 }
 
 .addButtonAb {
-  background-color: rgb(143, 50, 230);
+  background-color: #004d40;
   color: rgb(255, 255, 255);
   border: 1px solid;
   border-color: rgb(135, 135, 236);
