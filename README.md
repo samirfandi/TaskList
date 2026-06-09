@@ -59,7 +59,7 @@ Through this project, I aim to strengthen my understanding of:
 ## Clone the repository :
 
 ```bash
-git clone https://github.com/samirfandi/Loan-form.git
+git clone https://github.com/samirfandi/TaskList.git
 ```
 
 ## Go to the project folder :
