@@ -65,7 +65,7 @@ git clone https://github.com/samirfandi/TaskList.git
 ## Go to the project folder :
 
 ```bash
-cd LoanForm
+cd task-list
 ```
 
 ## 📦 Install dependencies :
